@@ -1,7 +1,13 @@
 #include "marker_object.h"
 #include "opencv2/core.hpp"
+#include <opencv2/core/utility.hpp>
+#include "opencv2/video.hpp"
 #include "opencv2/imgproc.hpp"
+#include "opencv2/videoio.hpp"
 #include "opencv2/highgui.hpp"
+#include "opencv2/videostab.hpp"
+#include <stdexcept>    
+#include "opencv2/opencv_modules.hpp"
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
@@ -21,8 +27,6 @@ static Scalar randomColor(RNG& rng)
     return Scalar(icolor&255, (icolor>>8)&255, (icolor>>16)&255);
 }
 
-
-
 int main(int argc, char** argv)
 {
 
@@ -32,8 +36,9 @@ int main(int argc, char** argv)
     int lineType = LINE_AA; // change it to LINE_8 to see non-antialiased graphics
     int i, width = 1000, height = 700;
     int x1 = -width/2, x2 = width*3/2, y1 = -height/2, y2 = height*3/2;
-    const char videoFile[] = "resources/video.avi";
-    VideoCapture capture(videoFile);
+    //const char videoFile[] = argv[1];// "resources/video.avi";
+
+    VideoCapture capture(argv[1]);
     Mat frame;
    
     Mat image = Mat::zeros(height, width, CV_8UC3);
@@ -44,8 +49,7 @@ int main(int argc, char** argv)
 
     if(!capture.isOpened())
         throw "Error when reading steam_avi";
-
-    namedWindow("Detect Objects", 1);
+    capture.open(0);
     for( ; ; )
     {
       pt1.x = rng.uniform(x1, x2);
@@ -57,8 +61,9 @@ int main(int argc, char** argv)
       capture >> frame;
       if(frame.empty())
         break;
-        SetDrawingObj(frame, pt1.x, pt1.y, 100, 100);
-        imshow("Detect Objects", frame);
+        SetDrawingObj(frame, 50, 100, 100, 100);
+        //line(frame, pt1, pt2, randomColor(rng), 10, lineType );
+        imshow(argv[1], frame);
         waitKey(20); // waits to display frame
     }
    

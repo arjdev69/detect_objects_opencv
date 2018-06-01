@@ -1,6 +1,13 @@
 {
     "C_Cpp.errorSquiggles": "Disabled",
     "files.associations": {
-        "*.tcc": "cpp"
+        "*.tcc": "cpp",
+        "string": "cpp",
+        "ratio": "cpp",
+        "functional": "cpp",
+        "istream": "cpp",
+        "stdexcept": "cpp",
+        "typeinfo": "cpp",
+        "fstream": "cpp"
     }
 }
