@@ -3,6 +3,3 @@
 g++ -g -Wall -pedantic -std=c++11 marker_object.cpp -o markerOutput `pkg-config --cflags --libs opencv`
 
 ./markerOutput
-
-
-#ubuntu 16.04
