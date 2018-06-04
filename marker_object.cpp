@@ -16,9 +16,19 @@
 using namespace cv;
 
 void SetDrawingObj(Mat img, int x, int y, int w, int h){
-  Rect transform_R = Rect(x,y,w,h);
+  //Rect transform_R = Rect(x,y,w,h);
+  //rectangle(img,transform_R,Scalar(255,0,0),3,8,0);
+  line(img, Point(w, h), Point(x,y), Scalar( 110, 220, 0 ),2,8);
+  line(img, Point(w - 20, h), Point(x,y + 100), Scalar( 110, 220, 0 ),2,8);
+  line(img, Point(w, h+100), Point(x,y+100), Scalar( 0, 220, 0 ),2,8);
+}
 
-  rectangle(img,transform_R,Scalar(255,0,0),3,8,0);
+void SetDrawingObj2(Mat img, int x, int y, int w, int h){
+  //Rect transform_R = Rect(x,y,w,h);
+  //rectangle(img,transform_R,Scalar(255,0,0),3,8,0);
+  line(img, Point(w, h), Point(x,y), Scalar( 110, 220, 0 ),2,8);
+  line(img, Point(w - 20, h), Point(x,y + 100), Scalar( 110, 220, 0 ),2,8);
+  line(img, Point(w, h+100), Point(x,y+100), Scalar( 0, 220, 0 ),2,8);
 }
 
 static Scalar randomColor(RNG& rng)
@@ -49,7 +59,7 @@ int main(int argc, char** argv)
 
     if(!capture.isOpened())
         throw "Error when reading steam_avi";
-    capture.open(0);
+    //capture.open(0);
     for( ; ; )
     {
       pt1.x = rng.uniform(x1, x2);
@@ -61,10 +71,10 @@ int main(int argc, char** argv)
       capture >> frame;
       if(frame.empty())
         break;
-        SetDrawingObj(frame, 50, 100, 100, 100);
+        SetDrawingObj(frame, 140, 160, 160, 160);
         //line(frame, pt1, pt2, randomColor(rng), 10, lineType );
-        imshow(argv[1], frame);
-        waitKey(20); // waits to display frame
+        imshow("", frame);
+        waitKey(20); // waits to display frame   
     }
    
     waitKey();
