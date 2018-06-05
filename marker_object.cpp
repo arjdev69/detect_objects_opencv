@@ -15,20 +15,24 @@
 
 using namespace cv;
 
-void SetDrawingObj(Mat img, int x, int y, int w, int h){
-  //Rect transform_R = Rect(x,y,w,h);
-  //rectangle(img,transform_R,Scalar(255,0,0),3,8,0);
-  line(img, Point(w, h), Point(x,y), Scalar( 110, 220, 0 ),2,8);
-  line(img, Point(w - 20, h), Point(x,y + 100), Scalar( 110, 220, 0 ),2,8);
-  line(img, Point(w, h+100), Point(x,y+100), Scalar( 0, 220, 0 ),2,8);
+void SetDrawingObjLine(Mat img, int x, int y, int w, int h){
+  line(img, Point(w, h), Point(x,y), Scalar( 110, 0, 0 ),2,8);
 }
 
-void SetDrawingObj2(Mat img, int x, int y, int w, int h){
-  //Rect transform_R = Rect(x,y,w,h);
-  //rectangle(img,transform_R,Scalar(255,0,0),3,8,0);
-  line(img, Point(w, h), Point(x,y), Scalar( 110, 220, 0 ),2,8);
-  line(img, Point(w, h), Point(x+20,y+100), Scalar( 110, 220, 0 ),2,8);
-  line(img, Point(w, h+100), Point(x,y+100), Scalar( 0, 220, 0 ),2,8);
+void SetLine(Mat imgLineLeft, int x, int y, int w, int h, bool right){
+  int poseY = 100;  int poseX = 20; 
+  int poseYu = 100; int poseW = 0;
+  int poseHu = 100;
+
+  if(right){
+    //std::cout<<"Entrou 2 vezes ? "<< right <<std::endl;
+    poseX = 0;
+    poseW = -20;
+  }
+
+  SetDrawingObjLine(imgLineLeft, x, y, w, h);
+  SetDrawingObjLine(imgLineLeft, x + poseX, y + poseY, w + poseW, h);
+  SetDrawingObjLine(imgLineLeft, x, y + poseYu, w, h + poseHu);
 }
 
 static Scalar randomColor(RNG& rng)
@@ -59,7 +63,7 @@ int main(int argc, char** argv)
 
     if(!capture.isOpened())
         throw "Error when reading steam_avi";
-    //capture.open(0);
+
     for( ; ; )
     {
       pt1.x = rng.uniform(x1, x2);
@@ -71,10 +75,9 @@ int main(int argc, char** argv)
       capture >> frame;
       if(frame.empty())
         break;
-        SetDrawingObj(frame, 140, 160, 160, 160);
+        SetLine(frame, 140, 160, 160, 160, true);
 
-        SetDrawingObj2(frame, 180, 160, 200, 160);
-        //line(frame, pt1, pt2, randomColor(rng), 10, lineType );
+        SetLine(frame, 180, 160, 200, 160, false);
         imshow("", frame);
         waitKey(20); // waits to display frame   
     }
