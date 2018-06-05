@@ -27,7 +27,7 @@ void SetDrawingObj2(Mat img, int x, int y, int w, int h){
   //Rect transform_R = Rect(x,y,w,h);
   //rectangle(img,transform_R,Scalar(255,0,0),3,8,0);
   line(img, Point(w, h), Point(x,y), Scalar( 110, 220, 0 ),2,8);
-  line(img, Point(w - 20, h), Point(x,y + 100), Scalar( 110, 220, 0 ),2,8);
+  line(img, Point(w, h), Point(x+20,y+100), Scalar( 110, 220, 0 ),2,8);
   line(img, Point(w, h+100), Point(x,y+100), Scalar( 0, 220, 0 ),2,8);
 }
 
@@ -72,6 +72,8 @@ int main(int argc, char** argv)
       if(frame.empty())
         break;
         SetDrawingObj(frame, 140, 160, 160, 160);
+
+        SetDrawingObj2(frame, 180, 160, 200, 160);
         //line(frame, pt1, pt2, randomColor(rng), 10, lineType );
         imshow("", frame);
         waitKey(20); // waits to display frame   
