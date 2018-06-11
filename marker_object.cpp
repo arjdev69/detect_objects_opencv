@@ -16,39 +16,39 @@ using namespace cv;
 
 void SetDrawingObjLine(Mat img, int x, int y, int w, int h)
 {
-  line(img, Point(w, h), Point(x, y), Scalar(110, 0, 0), 2, 8);
+  line(img, Point(w, h), Point(x, y), Scalar(110, 0, 0), 1, 8);
 }
 
-void SetLine(Mat imgLine, int left, int down, bool right)
+void SetLine(Mat imgLine, int left, int down, int heightY, bool right)
 {
-  int y = 160;
-  int x = 140;
-  int w = 160;
-  int h = 160;
+  int y = 140;
+  int x = 20;
+  int w = 40;
+  int h = 140;
 
-  int poseY = 100;
-  int poseX = 20;
-  int poseYu = 100;
+  int sideLine = 20;
   int poseW = 0;
-  int poseHu = 100;
+
+  int size_z = 50;
+
+  //left = left + 150;
 
   if (right)
   {
-    //std::cout<<"Entrou 2 vezes ? "<< right <<std::endl;
-    poseX = 0;
+    sideLine = 0;
     poseW = -20;
   }
-
-  SetDrawingObjLine(imgLine, x + left, y + down, w + left, h + down);
-  SetDrawingObjLine(imgLine, (x + poseX) + left, (y + poseY) + down, (w + poseW) + left, h + down);
-  SetDrawingObjLine(imgLine, x + left, (y + poseYu) + down, w + left, (h + poseHu) + down);
+ 
+  SetDrawingObjLine(imgLine, (x), (y), (w), (h));
+  SetDrawingObjLine(imgLine, ((x + sideLine) + left), ((y + heightY) + down), ((w + poseW) + left), (h + down));
+  SetDrawingObjLine(imgLine, (x + left), ((y + heightY) + down), (w + left), ((h + heightY) + down));
 }
 
-void SetDrawingBrackets(Mat imgLine, int left, int down)
+void SetDrawingBrackets(Mat imgLine, int left, int down, int heightY, int widthX)
 {
-  SetLine(imgLine,left, down, true); // left
+  SetLine(imgLine,left, down, heightY, true); // left
 
-  SetLine(imgLine, 80 + left, down, false); // right
+  SetLine(imgLine, widthX + left, down, heightY, false); // right
 }
 
 static Scalar randomColor(RNG &rng)
@@ -91,7 +91,7 @@ int main(int argc, char **argv)
     capture >> frame;
     if (frame.empty())
       break;
-    SetDrawingBrackets(frame, pt2.x, pt2.x);
+    SetDrawingBrackets(frame, 135, 20, 50, 50);
     imshow("", frame);
     waitKey(1); // waits to display frame
   }
