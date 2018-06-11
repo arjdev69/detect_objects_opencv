@@ -21,10 +21,10 @@ void SetDrawingObjLine(Mat img, int x, int y, int w, int h)
 
 void SetLine(Mat imgLine, int left, int down, int heightY, bool right)
 {
-  int y = 140;
-  int x = 20;
-  int w = 40;
-  int h = 140;
+  int y = 160;
+  int x = 140;
+  int w = 160;
+  int h = 160;
 
   int sideLine = 20;
   int poseW = 0;
@@ -38,8 +38,8 @@ void SetLine(Mat imgLine, int left, int down, int heightY, bool right)
     sideLine = 0;
     poseW = -20;
   }
- 
-  SetDrawingObjLine(imgLine, (x), (y), (w), (h));
+  int x1 = 550; int x2 = 550; 
+  SetDrawingObjLine(imgLine, (x + left), (y + down), (w + left), (h + down));
   SetDrawingObjLine(imgLine, ((x + sideLine) + left), ((y + heightY) + down), ((w + poseW) + left), (h + down));
   SetDrawingObjLine(imgLine, (x + left), ((y + heightY) + down), (w + left), ((h + heightY) + down));
 }
@@ -91,7 +91,7 @@ int main(int argc, char **argv)
     capture >> frame;
     if (frame.empty())
       break;
-    SetDrawingBrackets(frame, 135, 20, 50, 50);
+    SetDrawingBrackets(frame, 135, 20, 30, 25);
     imshow("", frame);
     waitKey(1); // waits to display frame
   }
