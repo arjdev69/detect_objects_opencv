@@ -5,4 +5,9 @@ g++ -g -Wall -pedantic -std=c++11 marker_object.cpp -o markerOutput `pkg-config 
 ./markerOutput
 
 
+or 
+
+./run_code.sh
+
+
 # ubuntu 16.04

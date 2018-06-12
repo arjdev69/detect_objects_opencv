@@ -16,7 +16,7 @@ using namespace cv;
 
 void SetDrawingObjLine(Mat img, int x, int y, int w, int h)
 {
-  line(img, Point(w, h), Point(x, y), Scalar(110, 0, 0), 1, 8);
+  line(img, Point(w, h), Point(x, y), Scalar(110, 0, 0), 2, 8);
 }
 
 void SetLine(Mat imgLine, int left, int down, int heightY, bool right)
@@ -38,7 +38,7 @@ void SetLine(Mat imgLine, int left, int down, int heightY, bool right)
     sideLine = 0;
     poseW = -20;
   }
-  int x1 = 550; int x2 = 550; 
+  
   SetDrawingObjLine(imgLine, (x + left), (y + down), (w + left), (h + down));
   SetDrawingObjLine(imgLine, ((x + sideLine) + left), ((y + heightY) + down), ((w + poseW) + left), (h + down));
   SetDrawingObjLine(imgLine, (x + left), ((y + heightY) + down), (w + left), ((h + heightY) + down));
