@@ -14,7 +14,7 @@
 
 void setDrawingObjLine(cv::Mat img, int x, int y, int w, int h)
 {
-    line(img, Point(w, h), Point(x, y), Scalar(110, 0, 0), 2, 8);
+    cv::line(img, cv::Point(w, h), cv::Point(x, y), cv::Scalar(110, 0, 0), 2, 8);
 }
 
 void setLine(cv::Mat imgLine, int left, int down, int heightY, bool right)
@@ -23,8 +23,8 @@ void setLine(cv::Mat imgLine, int left, int down, int heightY, bool right)
     const int x = 140;
     const int w = 160;
     const int h = 160;
-    const int sideLine = 20;
-    const int poseW = 0;
+    int sideLine = 20;
+    int poseW = 0;
     const int size_z = 50;
 
     //left = left + 150;
@@ -47,10 +47,10 @@ void setDrawingBrackets(cv::Mat imgLine, int left, int down, int heightY, int wi
     setLine(imgLine, widthX + left, down, heightY, false); // right
 }
 
-static Scalar randomColor(RNG &rng)
+static cv::Scalar randomColor(cv::RNG &rng)
 {
     int icolor = (unsigned)rng;
-    return Scalar(icolor & 255, (icolor >> 8) & 255, (icolor >> 16) & 255);
+    return cv::Scalar(icolor & 255, (icolor >> 8) & 255, (icolor >> 16) & 255);
 }
 
 int main(int argc, char **argv)
@@ -59,7 +59,7 @@ int main(int argc, char **argv)
     char wndname[] = "Drawing Demo";
     const int NUMBER = 5000;
     const int DELAY = 5;
-    int lineType = LINE_AA; // change it to LINE_8 to see non-antialiased graphics
+    int lineType = cv::LINE_AA; // change it to LINE_8 to see non-antialiased graphics
     int i, width = 1000, height = 700;
     int x1 = -width / 2, x2 = width * 3 / 2, y1 = -height / 2, y2 = height * 3 / 2;
     //const char videoFile[] = argv[1];// "resources/video.avi";
@@ -67,11 +67,11 @@ int main(int argc, char **argv)
     cv::VideoCapture capture(argv[1]);
     cv::Mat frame;
 
-    cv::Mat image = cv::Mat::zeros(height, width, cv::CV_8UC3);
-    Size textsize = getTextSize("OpenCV forever!", FONT_HERSHEY_COMPLEX, 3, 5, 0);
-    Point org((width - textsize.width) / 2, (height - textsize.height) / 2);
-    RNG rng(0xFFFFFFFF);
-    Point pt1, pt2;
+    cv::Mat image = cv::Mat::zeros(height, width, CV_8UC3);
+    cv::Size textsize = getTextSize("OpenCV forever!", cv::FONT_HERSHEY_COMPLEX, 3, 5, 0);
+    cv::Point org((width - textsize.width) / 2, (height - textsize.height) / 2);
+    cv::RNG rng(0xFFFFFFFF);
+    cv::Point pt1, pt2;
 
     if (!capture.isOpened())
         throw "Error when reading steam_avi";
